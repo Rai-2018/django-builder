@@ -31,12 +31,14 @@ class ParameterCreate(View):
 	def post(self,request,*args,**kwargs):
 		#grabbing request.post 
 		form = ParameterForm(request.POST)
+		cleandata = {}
 		if form.is_valid():
 			#Forms only get a cleaned_data attribute when is_valid() has been called
 			cleandata = form.cleaned_data
 			write_into(cleandata)
 			form.save()
-			form = ParameterForm()
+			print("cleaned_data")
 		context = {"object":cleandata}
+		print(cleandata)
 		return render(request,'parameter_detail.html',context)
 
